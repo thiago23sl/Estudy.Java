@@ -1,0 +1,34 @@
+Tipo de Imóvel: Terreno
+Valor do Imóvel: R$ 150000.0
+Prazo do Financiamento: 10 anos
+Taxa de Juros Anual: 5.0%
+Tipo de Zona: residencial
+Pagamento Mensal: R$ 1280.3125
+Total do Pagamento: R$ 153637.5
+--------------------------------------------
+Tipo de Imóvel: Casa
+Valor do Imóvel: R$ 200000.0
+Prazo do Financiamento: 10 anos
+Taxa de Juros Anual: 3.0%
+Área Construída: 150.0
+Tamanho do Terreno: 200.0
+Pagamento Mensal: R$ 1750.8333333333333
+Total do Pagamento: R$ 210100.0
+--------------------------------------------
+Tipo de Imóvel: Terreno
+Valor do Imóvel: R$ 300000.0
+Prazo do Financiamento: 20 anos
+Taxa de Juros Anual: 6.0%
+Tipo de Zona: residencial
+Pagamento Mensal: R$ 1281.3749999999998
+Total do Pagamento: R$ 307529.99999999994
+--------------------------------------------
+Tipo de Imóvel: Casa
+Valor do Imóvel: R$ 150000.0
+Prazo do Financiamento: 30 anos
+Taxa de Juros Anual: 12.0%
+Área Construída: 100.0
+Tamanho do Terreno: 150.0
+Pagamento Mensal: R$ 500.83333333333337
+Total do Pagamento: R$ 180300.00000000003
+--------------------------------------------
