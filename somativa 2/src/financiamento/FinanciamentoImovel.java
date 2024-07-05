@@ -5,12 +5,14 @@ public abstract class FinanciamentoImovel {
     private final int prazoAnos;
     private final double taxaJurosAnual;
 
+    // Construtor da classe
     public FinanciamentoImovel(double valorImovel, int prazoAnos, double taxaJurosAnual) {
         this.valorImovel = valorImovel;
         this.prazoAnos = prazoAnos;
         this.taxaJurosAnual = taxaJurosAnual;
     }
 
+    // Getters
     public double getValorImovel() {
         return valorImovel;
     }
