@@ -1,18 +1,21 @@
 package financiamento;
 
-public abstract class FinanciamentoImovel {
-    private final double valorImovel;
-    private final int prazoAnos;
-    private final double taxaJurosAnual;
+import java.io.Serial;
+import java.io.Serializable;
 
-    // Construtor da classe
-    public FinanciamentoImovel(double valorImovel, int prazoAnos, double taxaJurosAnual) {
+public abstract class FinanciamentoImovel implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    protected double valorImovel;
+    protected int prazoAnos;
+    protected double taxaJurosAnual;
+
+    protected FinanciamentoImovel(double valorImovel, int prazoAnos, double taxaJurosAnual) {
         this.valorImovel = valorImovel;
         this.prazoAnos = prazoAnos;
         this.taxaJurosAnual = taxaJurosAnual;
     }
 
-    // Getters
     public double getValorImovel() {
         return valorImovel;
     }
@@ -25,15 +28,12 @@ public abstract class FinanciamentoImovel {
         return taxaJurosAnual;
     }
 
-    // Método abstrato para calcular o pagamento mensal do financiamento
     public abstract double calcularPagamentoMensal();
 
-    // Método para calcular o total de pagamento ao longo do financiamento
     public double calcularTotalPagamento() {
         double pagamentoMensal = calcularPagamentoMensal();
-        return pagamentoMensal * prazoAnos * 12; // Multiplica pelo número total de meses do prazo
+        return pagamentoMensal * prazoAnos * 12;
     }
 
-    // Método abstrato para exibir os dados específicos do financiamento
     public abstract void exibirDadosFinanciamento();
 }
