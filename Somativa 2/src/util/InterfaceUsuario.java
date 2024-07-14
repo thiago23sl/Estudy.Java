@@ -1,5 +1,7 @@
 package util;
 
+import financiamento.*;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,6 +10,33 @@ public class InterfaceUsuario {
 
     public InterfaceUsuario() {
         this.scanner = new Scanner(System.in);
+    }
+
+    public FinanciamentoImovel solicitarDadosFinanciamento() {
+        System.out.println("Digite o tipo de imóvel (casa, apartamento, terreno): ");
+        String tipoImovel = scanner.next().toLowerCase();
+
+        double valorImovel = solicitarValorImovel();
+        int prazoAnos = solicitarPrazoAnos();
+        double taxaJurosAnual = solicitarTaxaJurosAnual();
+
+        return switch (tipoImovel) {
+            case "casa" -> {
+                double areaConstruida = solicitarAreaConstruida();
+                double tamanhoTerreno = solicitarTamanhoTerreno(areaConstruida);
+                yield new Casa(valorImovel, prazoAnos, taxaJurosAnual, areaConstruida, tamanhoTerreno);
+            }
+            case "apartamento" -> {
+                int numVagasGaragem = solicitarNumVagasGaragem();
+                int numAndar = solicitarNumAndar();
+                yield new Apartamento(valorImovel, prazoAnos, taxaJurosAnual, numVagasGaragem, numAndar);
+            }
+            case "terreno" -> {
+                String tipoZona = solicitarTipoZona();
+                yield new Terreno(valorImovel, prazoAnos, taxaJurosAnual, tipoZona);
+            }
+            default -> throw new IllegalArgumentException("Tipo de imóvel inválido.");
+        };
     }
 
     public double solicitarValorImovel() {
@@ -73,30 +102,14 @@ public class InterfaceUsuario {
         return taxa;
     }
 
-    public String solicitarTipoImovel() {
-        String tipoImovel;
-        do {
-            System.out.print("Escolha o tipo de imóvel que deseja financiar (casa, apartamento, terreno): ");
-            tipoImovel = scanner.next().toLowerCase();
-            if (!tipoImovel.equals("casa") && !tipoImovel.equals("apartamento") && !tipoImovel.equals("terreno")) {
-                System.out.println("Tipo de imóvel inválido. Tente novamente.");
-            }
-        } while (!tipoImovel.equals("casa") && !tipoImovel.equals("apartamento") && !tipoImovel.equals("terreno"));
-        return tipoImovel;
-    }
-
-    public double solicitarAreaConstruida(double tamanhoTerreno) {
+    public double solicitarAreaConstruida() {
         double area = 0;
         boolean entradaValida;
         do {
             entradaValida = true;
             try {
-                System.out.print("Digite a área construída do imóvel (m²): ");
+                System.out.print("Digite a área construída: ");
                 area = scanner.nextDouble();
-                if (area <= 0 || area > tamanhoTerreno) {
-                    System.out.println("Área inválida. Deve ser maior que 0 e menor ou igual ao tamanho do terreno. Tente novamente.");
-                    entradaValida = false;
-                }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Digite um número.");
                 entradaValida = false;
@@ -106,16 +119,16 @@ public class InterfaceUsuario {
         return area;
     }
 
-    public double solicitarTamanhoTerreno() {
+    public double solicitarTamanhoTerreno(double areaConstruida) {
         double tamanho = 0;
         boolean entradaValida;
         do {
             entradaValida = true;
             try {
-                System.out.print("Digite o tamanho do terreno (mínimo de 150m²): ");
+                System.out.print("Digite o tamanho do terreno: ");
                 tamanho = scanner.nextDouble();
-                if (tamanho < 150) {
-                    System.out.println("Tamanho inválido. Deve ser maior que 150m². Tente novamente.");
+                if (tamanho < areaConstruida) {
+                    System.out.println("O tamanho do terreno não pode ser menor que a área construída. Tente novamente.");
                     entradaValida = false;
                 }
             } catch (InputMismatchException e) {
@@ -127,46 +140,38 @@ public class InterfaceUsuario {
         return tamanho;
     }
 
-    public int solicitarNumeroVagasGaragem() {
-        int vagas = 0;
+    public int solicitarNumVagasGaragem() {
+        int numVagas = 0;
         boolean entradaValida;
         do {
             entradaValida = true;
             try {
-                System.out.print("Digite o número de vagas de garagem (entre 0 e 5): ");
-                vagas = scanner.nextInt();
-                if (vagas < 0 || vagas > 5) {
-                    System.out.println("Número de vagas inválido. Deve ser entre 0 e 5. Tente novamente.");
-                    entradaValida = false;
-                }
+                System.out.print("Digite o número de vagas na garagem: ");
+                numVagas = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Digite um número.");
                 entradaValida = false;
                 scanner.next(); // limpa a entrada inválida
             }
         } while (!entradaValida);
-        return vagas;
+        return numVagas;
     }
 
-    public int solicitarNumeroAndar() {
-        int andar = 0;
+    public int solicitarNumAndar() {
+        int numAndar = 0;
         boolean entradaValida;
         do {
             entradaValida = true;
             try {
                 System.out.print("Digite o número do andar: ");
-                andar = scanner.nextInt();
-                if (andar < 0) {
-                    System.out.println("Número de andar inválido. Deve ser maior ou igual a 0. Tente novamente.");
-                    entradaValida = false;
-                }
+                numAndar = scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Digite um número.");
                 entradaValida = false;
                 scanner.next(); // limpa a entrada inválida
             }
         } while (!entradaValida);
-        return andar;
+        return numAndar;
     }
 
     public String solicitarTipoZona() {
