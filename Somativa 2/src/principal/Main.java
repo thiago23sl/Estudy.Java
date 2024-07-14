@@ -12,44 +12,16 @@ public class Main {
         InterfaceUsuario interfaceUsuario = new InterfaceUsuario();
         ArrayList<FinanciamentoImovel> financiamentos = new ArrayList<>();
 
-        // Informação sobre até no máximo 4 imóveis que serão financiados
-        for (int i = 1; i <= 4; i++) {
-            System.out.println("Informações do imóvel " + i + ":");
-            String tipoImovel = interfaceUsuario.solicitarTipoImovel();
-            double valorImovel = interfaceUsuario.solicitarValorImovel();
-            int prazoAnos = interfaceUsuario.solicitarPrazoAnos();
-            double taxaJurosAnual = interfaceUsuario.solicitarTaxaJurosAnual();
+        // Dados fixos de financiamento
+        financiamentos.add(new Casa(250000, 18, 3, 150, 200));
+        financiamentos.add(new Casa(450000, 5, 6, 450, 1000));
+        financiamentos.add(new Apartamento(150000, 8, 10, 2, 5));
+        financiamentos.add(new Apartamento(600000, 25, 5, 5, 30));
+        financiamentos.add(new Terreno(300000, 15, 35, "residencial"));
 
-            FinanciamentoImovel financiamento;
-
-            try {
-                switch (tipoImovel.toLowerCase()) {
-                    case "casa":
-                        double tamanhoTerreno = interfaceUsuario.solicitarTamanhoTerreno();
-                        double areaConstruida = interfaceUsuario.solicitarAreaConstruida(tamanhoTerreno);
-                        Casa casa = new Casa(valorImovel, prazoAnos, taxaJurosAnual, areaConstruida, tamanhoTerreno);
-                        double desconto = 50; // Exemplo de desconto
-                        casa.aplicarDesconto(desconto); // Pode lançar a exceção
-                        financiamento = casa;
-                        break;
-                    case "apartamento":
-                        int numVagasGaragem = interfaceUsuario.solicitarNumeroVagasGaragem();
-                        int numAndar = interfaceUsuario.solicitarNumeroAndar();
-                        financiamento = new Apartamento(valorImovel, prazoAnos, taxaJurosAnual, numVagasGaragem, numAndar);
-                        break;
-                    case "terreno":
-                        String tipoZona = interfaceUsuario.solicitarTipoZona();
-                        financiamento = new Terreno(valorImovel, prazoAnos, taxaJurosAnual, tipoZona);
-                        break;
-                    default:
-                        System.out.println("Tipo de imóvel não reconhecido.");
-                        continue; // Pula para a próxima interação do loop
-                }
-                financiamentos.add(financiamento);
-            } catch (DescontoMaiorDoQueJurosException e) {
-                System.out.println("Erro: " + e.getMessage());
-            }
-        }
+        // Solicitar dados do usuário e adicionar aos financiamentos
+        FinanciamentoImovel novoFinanciamento = interfaceUsuario.solicitarDadosFinanciamento();
+        financiamentos.add(novoFinanciamento);
 
         // Salvar dados de financiamento em um arquivo de texto
         salvarDadosFinanciamento(financiamentos);
@@ -107,16 +79,13 @@ public class Main {
                 writer.newLine();
                 writer.write("Total do Pagamento: R$ " + financiamento.calcularTotalPagamento());
                 writer.newLine();
-
                 writer.write("--------------------------------------------");
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Erro ao salvar dados de financiamento: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
-
-
 
     private static void lerDadosFinanciamento() {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("financiamentos.txt"), StandardCharsets.UTF_8))) {
@@ -125,32 +94,28 @@ public class Main {
                 System.out.println(linha);
             }
         } catch (IOException e) {
-            System.out.println("Erro ao ler dados de financiamento: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
     private static void serializarFinanciamentos(ArrayList<FinanciamentoImovel> financiamentos) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("financiamentos.ser"))) {
             oos.writeObject(financiamentos);
+            System.out.println("Dados de financiamentos foram serializados\n");
         } catch (IOException e) {
-            System.out.println("Erro ao serializar financiamentos: " + e.getMessage());
+            System.err.println("Erro ao serializar os dados de financiamentos\n");
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static ArrayList<FinanciamentoImovel> desserializarFinanciamentos() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("financiamentos.ser"))) {
-            Object obj = ois.readObject();
-            if (obj instanceof ArrayList<?> arrayList) {
-                if (!arrayList.isEmpty() && arrayList.getFirst() instanceof FinanciamentoImovel) {
-                    return (ArrayList<FinanciamentoImovel>) arrayList;
-                }
-            }
+            return (ArrayList<FinanciamentoImovel>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Erro ao desserializar financiamentos: " + e.getMessage());
+            System.err.println("Erro ao desserializar os dados dos financiamentos: " + e.getMessage());
+            return null;
         }
-        return null;
     }
-
 
     private static void exibirTotais(ArrayList<FinanciamentoImovel> financiamentos) {
         double totalValorImoveis = 0;
