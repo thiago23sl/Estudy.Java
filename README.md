@@ -1,64 +1,119 @@
-# Estudy.Java
-Aqui estão as funcionalidades do código ,organizadas por classe e suas respectivas responsabilidades:
+# 🏠 Sistema de Financiamento de Imóveis
 
-<h1> Classes de Imóveis </h1>
-<h2> Apartamento </h2>
-Atributos:
+Sistema completo desenvolvido em Java para simular financiamentos de diferentes tipos de imóveis (apartamentos, casas e terrenos), com foco em cálculo de pagamento, entrada de dados validada e persistência das informações.
 
-numVagasGaragem: Armazena o número de vagas de garagem disponíveis para o apartamento.
-numAndar: Armazena o número do andar em que o apartamento está localizado.
-Métodos:
+---
 
-calcularPagamentoMensal(): Calcula o pagamento mensal do financiamento do apartamento usando a fórmula de amortização.
-exibirDadosFinanciamento(): Exibe informações detalhadas sobre o financiamento do apartamento, incluindo valor do imóvel, prazo, taxa de juros, número de vagas e andar.
-Casa
-Atributos:
+## 🏗️ Arquitetura do Projeto
 
-areaConstruida: Armazena a área construída da casa.
-tamanhoTerreno: Armazena o tamanho total do terreno da casa.
-Métodos:
+O projeto é estruturado em diversas classes, cada uma com responsabilidades bem definidas, utilizando princípios de orientação a objetos como herança, polimorfismo e abstração.
 
-calcularPagamentoMensal(): Calcula o pagamento mensal do financiamento da casa com base no valor do imóvel e no prazo.
-exibirDadosFinanciamento(): Exibe informações detalhadas sobre o financiamento da casa, incluindo valor do imóvel, prazo, taxa de juros, área construída e tamanho do terreno.
-Terreno
-Atributos:
+---
 
-tipoZona: Especifica o tipo de zona em que o terreno está localizado (residencial, comercial, etc.).
-Métodos:
+## 🧱 Classes de Imóveis
 
-calcularPagamentoMensal(): Calcula o pagamento mensal do financiamento do terreno usando a fórmula de amortização.
-exibirDadosFinanciamento(): Exibe informações detalhadas sobre o financiamento do terreno, incluindo valor do imóvel, prazo, taxa de juros e tipo de zona.
+### 🏢 Apartamento
 
-<h1> Classe Abstrata FinanciamentoImovel </h1>
-<h2>Funcionalidade: </h2>
-Serve como uma classe base para os diferentes tipos de imóveis, garantindo que todos os tipos de imóveis tenham métodos comuns, como calcularPagamentoMensal() e exibirDadosFinanciamento().
-O método calcularTotalPagamento() é mantido, permitindo que as subclasses o utilizem para calcular o total a ser pago ao longo do financiamento.
+**Atributos:**
+- `numVagasGaragem`: Número de vagas na garagem.
+- `numAndar`: Andar em que o apartamento está localizado.
 
-<h1> Exceções</h1>
-DescontoMaiorDoQueJurosException
-Funcionalidade:
-Uma exceção personalizada que pode ser lançada em situações onde um desconto aplicado ao financiamento é maior do que os juros, permitindo um tratamento específico para esse caso.
+**Métodos:**
+- `calcularPagamentoMensal()`: Calcula o pagamento mensal do financiamento do apartamento usando a fórmula de amortização.
+- `exibirDadosFinanciamento()`: Exibe os detalhes do financiamento, incluindo valor, prazo, juros, vagas de garagem e andar.
 
-<h1> Classe Principal (Main)</h1>
-<h2> Funcionalidade: </h2>
-Cria uma interface de usuário para interagir com o usuário e coletar dados sobre financiamentos de imóveis.
-Adiciona financiamentos fixos e permite que o usuário insira novos financiamentos.
-Salva os dados de financiamento em um arquivo de texto.
-Lê dados de financiamento de um arquivo de texto e exibe no console.
-Serializa e desserializa a lista de financiamentos, permitindo que os dados sejam mantidos entre execuções do programa.
-Calcula e exibe os totais de todos os financiamentos.
+---
 
-<h1> Classe EntradaDeDados </h1>
-<h2> Funcionalidade: </h2>
-Facilita a entrada de dados do usuário, com métodos para solicitar informações sobre o imóvel, como valor, prazo, taxa de juros, tipo de imóvel, área construída, tamanho do terreno, número de vagas de garagem e tipo de zona.
-Implementa validações para garantir que as entradas do usuário sejam válidas, evitando entradas inválidas.
-Funcionalidades Gerais
-Persistência de Dados:
+### 🏡 Casa
 
-O código inclui funcionalidades para salvar e ler dados de financiamentos em arquivos de texto, além de serializar e desserializar objetos, permitindo que os dados sejam mantidos entre execuções do programa.
-Cálculo de Pagamentos:
+**Atributos:**
+- `areaConstruida`: Área construída da casa.
+- `tamanhoTerreno`: Tamanho total do terreno.
 
-A lógica de cálculo de pagamentos foi refinada para cada tipo de imóvel, garantindo que os cálculos sejam precisos e específicos para as características de cada tipo de financiamento.
+**Métodos:**
+- `calcularPagamentoMensal()`: Calcula o pagamento mensal com base no valor do imóvel e no prazo.
+- `exibirDadosFinanciamento()`: Mostra informações do financiamento da casa, como valor, prazo, juros, área construída e tamanho do terreno.
 
-<h2> Finalizando </h2>
-Essas funcionalidades tornam o sistema de financiamento de imóveis mais robusto, flexível e fácil de usar, permitindo que os usuários insiram dados de forma eficiente e que o sistema trate esses dados de maneira adequada, incluindo a persistência e o cálculo preciso dos pagamentos. Se precisar de mais informações ou detalhes sobre alguma funcionalidade específica, estou à disposição!
+---
+
+### 🌳 Terreno
+
+**Atributos:**
+- `tipoZona`: Tipo de zona onde o terreno está localizado (residencial, comercial, etc.).
+
+**Métodos:**
+- `calcularPagamentoMensal()`: Calcula o pagamento mensal considerando o tipo de terreno.
+- `exibirDadosFinanciamento()`: Exibe os dados do financiamento, incluindo valor, prazo, juros e zona.
+
+---
+
+## 🧩 Classe Abstrata: `FinanciamentoImovel`
+
+**Responsabilidade:**
+- Serve como base para todas as classes de imóveis.
+- Define métodos comuns: `calcularPagamentoMensal()` e `exibirDadosFinanciamento()`.
+- Possui método utilitário: `calcularTotalPagamento()`, que retorna o valor total pago durante o financiamento.
+
+---
+
+## ⚠️ Exceção Personalizada
+
+### `DescontoMaiorDoQueJurosException`
+
+**Finalidade:**
+- Lançada quando um desconto informado é maior do que a taxa de juros aplicada, permitindo tratamento específico para essa inconsistência.
+
+---
+
+## 🧵 Classe Principal: `Main`
+
+**Funcionalidades:**
+- Interface interativa com o usuário via terminal.
+- Adiciona financiamentos fixos e permite o cadastro de novos financiamentos.
+- Salva os financiamentos em arquivo `.txt`.
+- Lê e exibe dados de financiamentos salvos.
+- Serializa e desserializa a lista de financiamentos (`.ser`), garantindo persistência entre execuções.
+- Exibe totais de pagamento de todos os financiamentos cadastrados.
+
+---
+
+## 🎛️ Classe `EntradaDeDados`
+
+**Responsabilidades:**
+- Facilita a entrada de dados de forma estruturada e validada.
+- Permite a coleta de:
+  - Valor do imóvel
+  - Prazo do financiamento
+  - Taxa de juros
+  - Tipo de imóvel
+  - Número de vagas
+  - Tipo de zona
+  - Área construída
+  - Tamanho do terreno
+- Valida entradas do usuário para evitar dados inconsistentes ou inválidos.
+
+---
+
+## 💾 Funcionalidades Gerais
+
+### 🧮 Cálculo de Pagamentos
+
+- Cada tipo de imóvel possui sua própria lógica para cálculo de parcelas mensais, adaptada às suas características específicas.
+- O método de amortização é aplicado quando necessário, promovendo precisão nas simulações.
+
+### 🗃️ Persistência de Dados
+
+- Suporte a leitura e escrita em arquivos `.txt`.
+- Suporte à serialização e desserialização de objetos, permitindo que os dados sejam preservados mesmo após o encerramento do programa.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- **Linguagem:** Java
+- **Paradigma:** Orientação a Objetos
+- **I/O:** Manipulação de arquivos (texto e binário)
+- **Tratamento de Erros:** Exceções personalizadas
+- **Persistência:** Serialização de objetos
+
+---
