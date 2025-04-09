@@ -60,5 +60,5 @@ Cálculo de Pagamentos:
 
 A lógica de cálculo de pagamentos foi refinada para cada tipo de imóvel, garantindo que os cálculos sejam precisos e específicos para as características de cada tipo de financiamento.
 
-<h3> Finalizando </h3>
+<h2> Finalizando </h2>
 Essas funcionalidades tornam o sistema de financiamento de imóveis mais robusto, flexível e fácil de usar, permitindo que os usuários insiram dados de forma eficiente e que o sistema trate esses dados de maneira adequada, incluindo a persistência e o cálculo preciso dos pagamentos. Se precisar de mais informações ou detalhes sobre alguma funcionalidade específica, estou à disposição!
