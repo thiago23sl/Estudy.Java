@@ -29,18 +29,15 @@ Métodos:
 calcularPagamentoMensal(): Calcula o pagamento mensal do financiamento do terreno usando a fórmula de amortização.
 exibirDadosFinanciamento(): Exibe informações detalhadas sobre o financiamento do terreno, incluindo valor do imóvel, prazo, taxa de juros e tipo de zona.
 
-
 <h1> Classe Abstrata FinanciamentoImovel </h1>
 <h2>Funcionalidade: </h2>
 Serve como uma classe base para os diferentes tipos de imóveis, garantindo que todos os tipos de imóveis tenham métodos comuns, como calcularPagamentoMensal() e exibirDadosFinanciamento().
 O método calcularTotalPagamento() é mantido, permitindo que as subclasses o utilizem para calcular o total a ser pago ao longo do financiamento.
 
-
 <h1> Exceções</h1>
 DescontoMaiorDoQueJurosException
 Funcionalidade:
 Uma exceção personalizada que pode ser lançada em situações onde um desconto aplicado ao financiamento é maior do que os juros, permitindo um tratamento específico para esse caso.
-
 
 <h1> Classe Principal (Main)</h1>
 <h2> Funcionalidade: </h2>
@@ -50,7 +47,6 @@ Salva os dados de financiamento em um arquivo de texto.
 Lê dados de financiamento de um arquivo de texto e exibe no console.
 Serializa e desserializa a lista de financiamentos, permitindo que os dados sejam mantidos entre execuções do programa.
 Calcula e exibe os totais de todos os financiamentos.
-
 
 <h1> Classe EntradaDeDados </h1>
 <h2> Funcionalidade: </h2>
@@ -63,5 +59,6 @@ O código inclui funcionalidades para salvar e ler dados de financiamentos em ar
 Cálculo de Pagamentos:
 
 A lógica de cálculo de pagamentos foi refinada para cada tipo de imóvel, garantindo que os cálculos sejam precisos e específicos para as características de cada tipo de financiamento.
-Resumo
+
+<h3> Finalizando </h3>
 Essas funcionalidades tornam o sistema de financiamento de imóveis mais robusto, flexível e fácil de usar, permitindo que os usuários insiram dados de forma eficiente e que o sistema trate esses dados de maneira adequada, incluindo a persistência e o cálculo preciso dos pagamentos. Se precisar de mais informações ou detalhes sobre alguma funcionalidade específica, estou à disposição!
